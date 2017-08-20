@@ -8,7 +8,7 @@ namespace MusicStore.Models.Repositories
 {
     public class Repository<T> where T: class
     {
-        private MusicStoreDataContext context = new MusicStoreDataContext();
+        private MusicStoreDataContext context = null;
 
         protected DbSet<T> DbSet
         {
@@ -17,7 +17,13 @@ namespace MusicStore.Models.Repositories
 
         public Repository()
         {
+            context = new MusicStoreDataContext();
             DbSet = context.Set<T>();
+        }
+
+        public Repository(MusicStoreDataContext context)
+        {
+            this.context = context;
         }
 
         public List<T> GetAll()
